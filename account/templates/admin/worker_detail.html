@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ worker }}
+{% endblock %}
+{% block content %}
+
+
+		<h2>{{ worker|title }}</h2>
+                                <p><b>Фамилия Имя Отчество:</b> {{ worker.full_name }}</p>
+
+                                <p><b>Город:</b> {{ worker.city }}</p>
+{% if worker.deps_block %}
+                                <p><b> Структура:</b> {{ worker.deps_block.deps.units}}</p>
+                                <p><b> Департамент:</b> {{ worker.deps_block.deps.name}}</p>
+                                {% if worker.deps_block %}
+
+                                <p><b> Отдел:</b> {{ worker.deps_block.name }}</p>
+                                {% endif %}
+{% else %}
+
+                                <p><b> Структура:</b> {{ worker.deps.units}}</p>
+
+                                <p><b> Департамент:</b> {{ worker.deps.name }}</p>
+
+{% endif %}
+								<p><b>Должность:</b> {{ worker.position }}</p>
+                                <p><b>Ip-address:</b> {{ worker.ip_number }}</p>
+								{% if worker.mobile_phone %}
+
+                                <p><b>Сотовый номер:</b> {{ worker.mobile_phone }}</p>
+                            {% endif %}
+                            {% if worker.phone %}
+                            <p><b>Городской номер:</b> {{ worker.phone }}</p>
+
+                            {% endif %}
+								<p><b>Кабинет:</b> {{ worker.room }}</p>
+								<p><b>Статус:</b> {{ worker.status }}</p>
+                            {% if worker.status != 'На работе' %}
+                                    <p><b>Дата отьезда:</b> {{ worker.date_out }}</p>
+                                      <p><b>Дата приезда:</b> {{ worker.date_in }}</p>
+                            {% endif %}
+
+
+    <ul class="nav nav-pills">
+								<li class="active"><a href="{% url 'new_worker_edit' worker.slug %}">Изменить сотрудника</a></li>
+								<li class="active">
+<a href="{% url 'WorkerDeleteView' worker.slug %}">Удалить сотрудника</a></li>
+
+								</ul>
+
+{% endblock %}

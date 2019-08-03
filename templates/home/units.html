@@ -1,0 +1,14 @@
+
+        <div class="float-left new">
+
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{% url 'home:units_detail' unit.slug %}">{{ unit}}</a></li>
+        <li class="list-group-item">Филиалы</li>
+            {% for unit in units %}
+  <li class="list-group-item"><a href="{% url 'home:units_detail' unit.slug %}">{{ unit.name }}</a></li>
+            {% endfor %}
+
+</ul>
+
+</div>
+

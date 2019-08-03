@@ -1,0 +1,10 @@
+ДУП
+{{ profile.position }}
+Position={{ profile.position.id }}
+{{ profile.user }}
+<ul>
+{% for unit in units %}
+<li><a href="{% url 'unit_detail' unit.slug %}">{{ unit }}</a></li>
+{% endfor %}
+</ul>
+<a href="{% url 'worker_add' %}">Добавить сотрудника</a>

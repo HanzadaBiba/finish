@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load units_tags %}
+{% block title %}
+{{ departament.name|title }}
+{% endblock %}
+{% block content %}
+
+
+
+  <ol class="breadcrumb breadcrumbs-minimal">
+								<li><a href="{% url 'home:home' %}">Главная</a></li>
+      {% if unit.id == 1 %}
+<li class="hidden-xs"><a href="{% url 'home:units_detail' unit.slug %}">{{ unit.name|title }}</a></li>
+{% else %}
+<li class="hidden-xs"><a href="{% url 'home:units_detail' unit.slug %}">Филиал {{ unit.name|title }}</a></li>
+
+      {% endif %}
+   <li class="active">{{ departament.name|title }}</li>
+
+  </ol>
+<div class="row">
+<div class="col-md-12">
+    <div class="panel panel-default">
+								<!-- Default panel contents -->
+								<div class="panel-heading">{{ departament.name }}</div>
+
+								<!-- Table -->
+								<table class="table"  >
+									<thead>
+										<tr style="width: 100px">
+											<th style="border-right:  1px solid #d6e9c6">Фио</th>
+											<th style="border-right:  1px solid #d6e9c6">Должность</th>
+											<th style="border-right:  1px solid #d6e9c6">Кабинет</th>
+											<th style="border-right:  1px solid #d6e9c6">Ip</th>
+											<th style="border-right:  1px solid #d6e9c6">Номер</th>
+											<th>Статус</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% for worker in workers %}
+                                        {% if not worker.deps_block %}
+
+
+									<tr >
+											<td style="border-right:  1px solid #d6e9c6" > {{ worker.full_name }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.position }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.room }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.ip_number }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.phone }}</td>
+											<td >
+                                                   {% if worker.status == 'На работе' %}
+
+                    	 <img src='{% static "work.png" %}'width='40' height='40'>
+					                        {% elif worker.status == 'Отпуск' %}
+                                
+	<div class="btn-group  btn-group-dropdown new2" width='40' >
+								<button  type="button" class="" data-toggle="dropdown">             <img src='{% static "otpusk.png" %}'width='30' height='30'></button>
+								<ul  class="dropdown-menu" role="menu">
+									<li><a >От:{{ worker.date_out }}</a></li>
+									<li><a >До:{{ worker.date_in }}</a></li>
+								</ul>
+							</div>
+{% elif worker.status == 'Командировка' %}
+                                
+	<div class="btn-group  btn-group-dropdown new2" width='40' >
+								<button   type="button" class="btn" data-toggle="dropdown">          <img src='{% static "komand.png" %}' width='20' height='20'></button>
+								<ul  class="dropdown-menu" role="menu">
+									<li><a >От:{{ worker.date_out }}</a></li>
+									<li><a >До:{{ worker.date_in }}</a></li>
+								</ul>
+							</div>
+{% elif worker.status == 'Больничная' %}
+                                
+	<div class="btn-group  btn-group-dropdown new2" width='40' >
+								<button   type="button" class="btn" data-toggle="dropdown">             <img src='{% static "medicsym.png" %}'width='20' height='20'></button>
+								<ul  class="dropdown-menu" role="menu">
+									<li><a >От:{{ worker.date_out }}</a></li>
+									<li><a >До:{{ worker.date_in }}</a></li>
+								</ul>
+							</div>
+
+
+                                                {% endif %}
+
+                                            </td>
+										</tr>
+                                        {% endif %}
+									{% endfor %}
+
+
+
+									</tbody>
+								</table>
+							</div>
+
+
+    {% for departament_block in departament.departament_block_set.all %}
+ <div class="panel panel-default">
+
+
+								<!-- Default panel contents -->
+								<div class="panel-heading">{{ departament_block.name }}</div>
+
+
+
+								<!-- Table -->
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="border-right:  1px solid #d6e9c6">Фио</th>
+											<th style="border-right:  1px solid #d6e9c6">Должность</th>
+											<th style="border-right:  1px solid #d6e9c6">Кабинет</th>
+											<th style="border-right:  1px solid #d6e9c6">Ip</th>
+											<th style="border-right:  1px solid #d6e9c6">Номер</th>
+											<th>Статус</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% for worker in departament_block.workers_set.all %}
+
+                                        {% if worker.deps_block %}
+
+
+									<tr>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.full_name }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.position }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.room }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.ip_number }}</td>
+											<td style="border-right:  1px solid #d6e9c6">{{ worker.phone }}</td>
+											<td>
+                                                {% if worker.status != 'На работе' %}
+
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+							<!-- Single button -->
+							<div class="btn-group btn-group-dropdown">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ worker.status }}</button>
+								<ul class="dropdown-menu" role="menu">
+									<div class="arrow top"></div>
+									<li><a href="">От:{{ worker.date_out }}</a></li>
+									<li><a href="">До:{{ worker.date_in }}</a></li>
+								</ul>
+							</div>
+						</div>
+                                            {% else %}
+                                                    {{ worker.status }}
+                                                {% endif %}
+
+                                            </td>
+										</tr>
+                                        {% endif %}
+									{% endfor %}
+
+
+
+									</tbody>
+								</table>
+
+							</div>
+ {% endfor %}
+
+    </div>
+</div>
+ {% endblock %}

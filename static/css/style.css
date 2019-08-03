@@ -1,0 +1,27 @@
+.new ul li a{
+    color:black;
+    font-size: 12px;
+}
+.new ul li a:hover{
+    color:red;
+    font-size: 12px;
+}
+.new{
+    font-size: 12px;
+    margin-left: 5px;
+    padding-right: 10px;
+    min-width: 300px;
+}
+.new1{
+    font-size: 14px;
+}
+
+.new1 table td {
+    font-size: 12px;
+}
+.new1 table td tr{
+    font-size: 12px;
+}
+.input-icon{
+    margin-right:10px;
+}

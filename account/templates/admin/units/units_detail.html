@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+Структура - {{ unit }}
+{% endblock %}
+{% block content %}
+<h1>Филлиал {{ unit }}</h1>
+<h3>Департаменты:</h3>
+<ul>
+    {% for departament in departaments %}
+<li  class="fa fa-address-card" aria-hidden="true"><a href="{% url 'departament_detail' departament.slug %}">{{ departament.name }}</a></li>
+        <br>{% endfor %}
+
+</ul>
+    <br>
+    <ul class="nav nav-pills">
+								<li class="active"><a href="{% url 'Departament_create' unit.id %}">Создать департамент</a></li>
+								<li class="active"><a href="{% url 'Units_update' unit.slug %}">Именить филлиал</a></li>
+								<li class="active"><a href="{% url 'Units_delete' unit.slug %}">Удалить филлиал</a></li>
+								</ul>
+
+
+
+{% endblock %}

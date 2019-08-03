@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+Отдел - {{ departament_block }}
+{% endblock %}
+{% block content %}
+<h1>Отдел {{ departament_block.name }}</h1>
+
+Сотрудники
+    <ul>
+{% for worker in workers %}
+<li class="fa fa-user">  <a href="{% url 'worker_detail' worker.slug %}">{{ worker }}</a></li>
+    <br>{% endfor %}
+</ul>
+    <br>
+    <ul class="nav nav-pills">
+								<li class="active"><a href="{% url 'block_worker_add' departament.id departament_block.id %}">Создать сотрудника</a></li>
+								<li class="active"><a href="{% url 'departament_block_update' departament_block.slug %}">Изменить отдел</a></li>
+								<li class="active"><a href="{% url 'departament_block_delete' departament_block.slug %}">Удалить отдел</a></li>
+								</ul>
+
+
+{% endblock %}

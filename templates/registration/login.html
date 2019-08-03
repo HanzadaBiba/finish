@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Войти в систему{% endblock %}
+{% block content %}
+<h1>Войти в систему</h1>
+{% if form.errors %}
+<p>
+Имя пользователя и пароль не совпадают.
+Пожалуйста, попробуйте еще раз.
+</p>
+{% else %}
+<p>Пожалуйста, используйте следующую форму для входа:</p>
+{% endif %}
+<div class="login-form">
+<form action="{% url "login" %}" class="form-horizontal" method="post">
+   <div class="form-group">
+									<label class="col-sm-3 control-label">{{ form.username.label }}</label>
+									<div class="col-sm-9">
+										<div class="input-icon">
+											{{ form.username }}
+										</div>
+									</div>
+								</div>
+      <div class="form-group">
+									<label class="col-sm-3 control-label">{{ form.password.label }}</label>
+									<div class="col-sm-9">
+										<div class="input-icon">
+											{{ form.password }}
+										</div>
+									</div>
+								</div>
+{% csrf_token %}
+<input type="hidden" name="next" value="{{ next }}" />
+<p><input type="submit" value="Войти"></p>
+</form>
+</div>
+{% endblock %}

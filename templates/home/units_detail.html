@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load units_tags %}
+{% block title %}
+{{ unit.name|title }}
+{% endblock %}
+{% block content %}
+
+  <ol class="breadcrumb breadcrumbs-minimal">
+								<li><a href="{% url 'home:home' %}">Главная</a></li>
+      {% if unit.id == 1 %}
+
+                <li class="active">{{ unit.name|title }}</li>
+        {% else %}
+           <li class="active">Филлиал по {{ unit.name|title }}</li>
+
+      {% endif %}
+							</ol>
+<ul>
+{% for departament in departaments %}
+<li  class="fa fa-address-card" aria-hidden="true"><a href="{% url 'home:departament_detail' departament.slug %}">{{ departament.name }}</a></li>
+    <br>
+{% endfor %}
+
+</ul>
+
+
+
+{% endblock %}

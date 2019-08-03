@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load units_tags %}
+{% block title %}
+Главная
+{% endblock %}
+{% block content %}
+
+    <div class="primary-block">
+
+    <ol class="breadcrumb breadcrumbs-minimal">
+								<li>Главная</li>
+
+							</ol>
+
+
+    <ul>
+        {% for departament in departaments %}
+<li class="fa fa-address-card" aria-hidden="true">   <a href="{% url 'home:departament_detail' departament.slug %}">{{ departament }}</a></li><br>
+
+{% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

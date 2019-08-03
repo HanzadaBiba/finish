@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+{{ request.user.last_name}}
+<a href="{% url 'password_change' %}">Изменить пароль</a>
+<p><a href="{% url "password_reset" %}">Forgotten your
+password?</a></p>
+<br>
+{{ user }}
+<br>
+<a href="{% url 'work' request.user.id %}">Войти</a>
+</body>
+</html>

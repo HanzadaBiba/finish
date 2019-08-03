@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ worker }} изменить
+{% endblock %}
+{% block content %}
+
+
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+<li class="{{ message.tags }}">
+{{ message|safe }}
+<a href="#" class="close">x</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{{ worker }}
+<form action="" method="post">
+    {% csrf_token %}
+
+{{ worker_form.as_p }}
+    <input type="submit" value="Изменить">
+</form>
+{% endblock %}

@@ -1,0 +1,7 @@
+Worker_add
+<form action="" method="post">
+
+{{ worker_add_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Добавить">
+</form>
